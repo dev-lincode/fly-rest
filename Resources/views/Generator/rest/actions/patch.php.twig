@@ -1,0 +1,44 @@
+    /**
+{% block phpdoc_method_header %}
+     * Partial Update to a {{ entity }} entity.
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "PATCH {{ entity }}",
+     *   headers={
+     *      {
+     *          "name"="Authorization",
+     *          "description"="Authorization key"
+     *      },
+     *     {
+     *          "name"="Content-Type",
+     *          "description"="application/json"
+     *      }
+     *   },
+     *   input="{{ namespace }}\Form\{{ entity }}Type",
+     *   statusCodes = {
+     *      404 = "Página não encontrada"
+     *   },
+     *   responseMap={
+     *      200 = {
+     *          "class"="{{ namespace }}\Entity\{{ entity }}",
+     *          "parsers"={"Nelmio\ApiDocBundle\Parser\JmsMetadataParser"}
+     *     }
+     *   }
+     * )
+     *
+{% endblock phpdoc_method_header %}
+{% block phpdoc_method_annotations %}
+{% if 'annotation' == format %}{% endif %}
+{% endblock phpdoc_method_annotations %}
+*/
+{% block method_definition %}
+    public function patchAction(Request $request, {{ entity }} $entity)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        return $this->putAction($request, $entity);
+{% endblock method_body %}
+{% block method_return '' %}
+    }
+{% block form '' %}

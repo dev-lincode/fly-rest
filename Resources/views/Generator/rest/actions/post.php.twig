@@ -1,0 +1,64 @@
+    /**
+{% block phpdoc_method_header %}
+     * Create a {{ entity }} entity.
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "POST {{ entity }}",
+     *   headers={
+     *      {
+     *          "name"="Authorization",
+     *          "description"="Authorization key"
+     *      },
+     *     {
+     *          "name"="Content-Type",
+     *          "description"="application/json"
+     *      }
+     *   },
+     *   input="{{ namespace }}\Form\{{ entity }}Type",
+     *   statusCodes = {
+     *      404 = "Página não encontrada"
+     *   },
+     *   responseMap={
+     *      200 = {
+     *          "class"="{{ namespace }}\Entity\{{ entity }}",
+     *          "parsers"={"Nelmio\ApiDocBundle\Parser\JmsMetadataParser"}
+     *     }
+     *   }
+     * )
+     *
+{% endblock phpdoc_method_header %}
+     *
+{% block phpdoc_method_annotations %}
+{% if 'annotation' == format %}{% endif %}
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function postAction(Request $request)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        $entity = new {{ entity }}();
+        $form = $this->createForm(new {{ entity }}Type(), $entity, array("method" => $request->getMethod()));
+        $this->removeExtraFields($request, $form);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return ['result' => $entity, 'has_more' => false];
+        }
+
+{% endblock method_body %}
+{% block method_return %}
+
+        $errorFiltered = new FormErrorException($form);
+
+        return FOSView::create(['error' => ['code'=> Codes::HTTP_INTERNAL_SERVER_ERROR,
+        'message' => $errorFiltered->getFormErrors()]], Codes::HTTP_INTERNAL_SERVER_ERROR);
+
+{% endblock method_return %}
+    }
+{% block form '' %}

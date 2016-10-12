@@ -1,0 +1,11 @@
+restapibundle_member:
+    resource: "@RestApiBundle/Controller/MemberController.php"
+    type: annotation
+
+restapibundle_member_rest:
+    resource: "@RestApiBundle/Controller/MemberRESTController.php"
+    type: annotation
+
+restapibundle_login:
+    resource: "@RestApiBundle/Controller/LoginController.php"
+    type: annotation

@@ -1,0 +1,32 @@
+fos_oauth_server_token:
+    pattern:  /oauth/v2/token
+    defaults: { _controller: RestApiBundle:Token:token }
+    methods:  [GET]
+
+fos_oauth_server_authorize:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
+
+oauth_server_login:
+    pattern:  /oauth/v2/auth_login
+    defaults: { _controller: RestApiBundle:Security:login }
+
+oauth_server_login_check:
+    pattern:  /oauth/v2/auth_login_check
+    defaults: { _controller: RestApiBundle:Security:loginCheck }
+
+oauth_authorize:
+    pattern:  /authorize
+    defaults: { _controller: RestApiBundle:Auth:auth }
+
+member_member_api_v1:
+    resource: "@RestApiBundle/Controller/MemberRESTController.php"
+    type:   rest
+    prefix:   /api/v1
+
+estapibundle_client:
+    resource: "@RestApiBundle/Controller/ClientController.php"
+    type: annotation
+
+restapibundle_token:
+    resource: "@RestApiBundle/Controller/TokenController.php"
+    type: annotation

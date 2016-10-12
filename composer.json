@@ -1,0 +1,24 @@
+{
+  "name": "lincode/rest-api",
+  "license": "MIT",
+  "type": "library",
+  "description": "Componente Rest API - Desenvolvido pela Lincode",
+  "autors": [
+    {
+      "name": "Fernando Cezar Chaves",
+      "email": "fernandocchaves@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": { "Lincode\\RestApi\\Bundle\\": "" }
+  },
+  "require": {
+    "voryx/restgeneratorbundle": "^0.3.0",
+    "nelmio/api-doc-bundle": "^2.12",
+    "friendsofsymfony/oauth-server-bundle": "1.5.0",
+    "adoy/oauth2": "1.3.0",
+    "friendsofsymfony/rest-bundle": "1.7.8",
+    "jms/serializer-bundle": "1.0.*"
+  }
+}

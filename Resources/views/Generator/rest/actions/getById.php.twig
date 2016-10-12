@@ -1,0 +1,50 @@
+    /**
+{% block phpdoc_method_header %}
+     * Get a {{ entity }} entity
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "GET {{ entity }}",
+     *   headers={
+     *      {
+     *          "name"="Authorization",
+     *          "description"="Authorization key"
+     *      },
+     *     {
+     *          "name"="Content-Type",
+     *          "description"="application/json"
+     *      }
+     *   },
+     *   statusCodes = {
+     *      404 = "Página não encontrada"
+     *   },
+     *   responseMap={
+     *      200 = {
+     *          "class"="{{ namespace }}\Entity\{{ entity }}",
+     *          "parsers"={"Nelmio\ApiDocBundle\Parser\JmsMetadataParser"}
+     *     }
+     *   }
+     * )
+     *
+{% endblock phpdoc_method_header %}
+     *
+{% block phpdoc_method_annotations %}
+{% if 'annotation' == format %}
+{% endif %}
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function getAction({{ entity }} $entity)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        try {
+            return ['result' => $entity, 'has_more' => false];
+        } catch (\Exception $e) {
+            return FOSView::create(['error' => ['code'=> Codes::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => $e->getMessage()]], Codes::HTTP_INTERNAL_SERVER_ERROR);
+        }
+{% endblock method_body %}
+{% block method_return '' %}
+    }
+{% block form '' %}

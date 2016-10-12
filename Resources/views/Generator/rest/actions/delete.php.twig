@@ -1,0 +1,47 @@
+    /**
+{% block phpdoc_method_header %}
+     * Delete a {{ entity }} entity.
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "DELETE {{ entity }}",
+     *   headers={
+     *      {
+     *          "name"="Authorization",
+     *          "description"="Authorization key"
+     *      },
+     *     {
+     *          "name"="Content-Type",
+     *          "description"="application/json"
+     *      }
+     *   },
+     *   statusCodes = {
+     *      200 = "Sucesso",
+     *      404 = "Página não encontrada"
+     *   }
+     * )
+     *
+{% endblock phpdoc_method_header %}
+{% block phpdoc_method_annotations %}
+{% if 'annotation' == format %}{% endif %}
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function deleteAction(Request $request, {{ entity }} $entity)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($entity);
+            $em->flush();
+
+            return ['result' => 'success', 'has_more' => false];
+        } catch (\Exception $e) {
+            return FOSView::create(['error' => ['code'=> Codes::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => $e->getMessage()]], Codes::HTTP_INTERNAL_SERVER_ERROR);
+        }
+{% endblock method_body %}
+{% block method_return '' %}
+    }
+{% block form '' %}

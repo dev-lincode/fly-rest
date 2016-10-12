@@ -1,0 +1,62 @@
+    /**
+{% block phpdoc_method_header %}
+     * Update a {{ entity }} entity.
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "PUT {{ entity }}",
+     *   headers={
+     *      {
+     *          "name"="Authorization",
+     *          "description"="Authorization key"
+     *      },
+     *     {
+     *          "name"="Content-Type",
+     *          "description"="application/json"
+     *      }
+     *   },
+     *   input="{{ namespace }}\Form\{{ entity }}Type",
+     *   statusCodes = {
+     *      404 = "Página não encontrada"
+     *   },
+     *   responseMap={
+     *      200 = {
+     *          "class"="{{ namespace }}\Entity\{{ entity }}",
+     *          "parsers"={"Nelmio\ApiDocBundle\Parser\JmsMetadataParser"}
+     *     }
+     *   }
+     * )
+     *
+{% endblock phpdoc_method_header %}
+{% block phpdoc_method_annotations %}
+{% if 'annotation' == format %}{% endif %}
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function putAction(Request $request, {{ entity }} $entity)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $request->setMethod('PATCH'); //Treat all PUTs as PATCH
+            $form = $this->createForm(new {{ entity }}Type(), $entity, array("method" => $request->getMethod()));
+            $this->removeExtraFields($request, $form);
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em->flush();
+
+                return ['result' => $entity, 'has_more' => false];
+            }
+
+            $errorFiltered = new FormErrorException($form);
+            return FOSView::create(['error' => ['code'=> Codes::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => $errorFiltered->getFormErrors()]], Codes::HTTP_INTERNAL_SERVER_ERROR);
+        } catch (\Exception $e) {
+            return FOSView::create(['error' => ['code'=> Codes::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => $e->getMessage()]], Codes::HTTP_INTERNAL_SERVER_ERROR);
+        }
+{% endblock method_body %}
+{% block method_return '' %}
+    }
+{% block form '' %}
