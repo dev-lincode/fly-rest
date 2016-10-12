@@ -1,6 +1,6 @@
 <?php
 
-namespace TagInterativa\RestApi\Bundle\Errors;
+namespace Lincode\RestApi\Bundle\Errors;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

@@ -1,6 +1,6 @@
 <?php
 
-namespace TagInterativa\RestApi\Bundle\DependencyInjection;
+namespace Lincode\RestApi\Bundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

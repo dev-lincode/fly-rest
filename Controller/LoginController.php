@@ -1,6 +1,6 @@
 <?php
 
-namespace TagInterativa\RestApi\Bundle\Controller;
+namespace Lincode\RestApi\Bundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use TagInterativa\CMSBundle\Controller\TemplateController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;

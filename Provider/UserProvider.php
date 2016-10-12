@@ -1,6 +1,6 @@
 <?php
 
-namespace TagInterativa\RestApi\Bundle\Provider;
+namespace Lincode\RestApi\Bundle\Provider;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;

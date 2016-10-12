@@ -1,4 +1,4 @@
-Bradford - REST API
+Lincode - REST API
 ==============================
 
 Essa bundle é responsável para a criação de API's RESTFull

@@ -16,37 +16,17 @@ use Lincode\Fly\Bundle\Service\EntityFormService;
  */
 class ClientController extends BaseController
 {
-	public function __construct() {
-		$this->singularTitle = "Cliente API";
-		$this->pluralTitle   = "Clientes API";
-
-		$this->entityClass      = "Lincode\RestApi\Bundle\Entity\Client";
-		$this->entityForm       = "Lincode\RestApi\Bundle\Form\ClientType";
-		$this->entityRepository = "RestApiBundle:Client";
-
-		$this->routeBase = "cms_client";
-
-		$fields = '{
-			"id": {
-				"label" : "Id",
-				"col" : 1
-			},
-			"name": {
-				"label" : "Name",
-				"col" : 4
-			},
-			"publicId": {
-				"label" : "Client ID",
-				"col" : 4
-			},
-			"secret": {
-				"label" : "Secret ID",
-				"col" : 4
-			}
-		}';
-		$this->listFields = json_decode($fields, true);
-		$this->persistences = array("create" => true, "read" => false, "update" => false, "delete" => true);
-	}
+    protected $configs = [
+        'prefix_route' => 'cms_client',
+        'singular_name' => 'Cliente API',
+        'plural_name' => 'Clientes API',
+        'entity' => 'RestApiBundle:Client',
+        'entity_class' => 'Lincode\RestApi\Bundle\Entity\Client',
+        'entity_form' => 'Lincode\RestApi\Bundle\Form\ClientType',
+        'title_field' => 'name',
+        'list_fields' => ['name' => 'Nome', 'publicId' => 'Client ID', 'secret' => 'Secret ID'],
+        'show_fields' => ['name' => 'Nome', 'publicId' => 'Client ID', 'secret' => 'Secret ID']
+    ];
 
     /**
      * Lists all Member entities.
@@ -55,8 +35,8 @@ class ClientController extends BaseController
      * @Method("GET")
      */
 
-    public function indexAction(Request $request) {
-        return parent::indexAction($request);
+    public function indexAction() {
+        return parent::indexAction();
     }
 
     /**
@@ -67,15 +47,16 @@ class ClientController extends BaseController
      */
     public function newAction(Request $request) {
 
-        $entity = new $this->entityClass;
+        $controllerService = $this->get('fly.controller.service');
+        $entity = $this->getNewEntity();
 
-        $this->checkPermissions();
-        $form = $this->getNewForm($entity);
-        $form = $this->addSubmitButtonForm($form);
+        $urlResponse = $this->generateUrl($this->configs['prefix_route'] . '_new');
+        $form = $controllerService->getForm($this->getNewEntityForm(), $entity, $urlResponse);
         $form->handleRequest($request);
 
-        if($form->isValid()) {
-            if(EntityFormService::validadeForm($form, $this->entityRepository, $entity)) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            $formValidateService = $this->get('fly.form.service');
+            if ($formValidateService->validadeForm($form, $this->configs['entity'], $entity)) {
                 try {
                     $clientManager = $this->container->get('fos_oauth_server.client_manager.default');
                     $client = $clientManager->createClient();
@@ -101,15 +82,14 @@ class ClientController extends BaseController
             }
         }
 
-        return $this->renderNew('CMSBundle:Template:new.html.twig', array(
-            'title'             => $this->singularTitle,
-            'persistences'      => $this->persistences,
-            'routeBase'         => $this->routeBase,
-            'form'              => $form->createView(),
-            'includes'          => $this->includes,
-            'viewDefaultParams' => $this->viewDefaultParams,
-            'formThemes'        => $this->formThemes,
-        ));
+        return array(
+            'entity' => $entity,
+            'form' => $form->createView(),
+            'configs' => $this->configs,
+            'parent' => $this->parent,
+            'permissions' => $this->permissions,
+            'userPermissions' => $this->userPermissions
+        );
 
     }
 
@@ -119,18 +99,20 @@ class ClientController extends BaseController
      * @Route("/{id}/delete", name="cms_client_delete")
      * @Method("GET")
      */
-    public function deleteAction(Request $request, $id) {
-        return parent::deleteAction($request, $id);
+    public function deleteAction($id) {
+        return parent::deleteAction($id);
     }
 
+
     /**
-     * Submit a Member entity list.
+     * Deletes a Page entity.
      *
-     * @Route("/", name="cms_client_submit_list")
-     * @Method({"POST"})
+     * @Route("/deleteAll", name="cms_client_delete_all")
+     * @Method("POST")
      */
-    public function submitListAction(Request $request) {
-		return parent::submitListAction($request);
-	}
+    public function deleteAllAction(Request $request)
+    {
+        return parent::deleteAllAction($request);
+    }
 
 }

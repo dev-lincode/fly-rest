@@ -18,11 +18,6 @@ oauth_authorize:
     pattern:  /authorize
     defaults: { _controller: RestApiBundle:Auth:auth }
 
-member_member_api_v1:
-    resource: "@RestApiBundle/Controller/MemberRESTController.php"
-    type:   rest
-    prefix:   /api/v1
-
 estapibundle_client:
     resource: "@RestApiBundle/Controller/ClientController.php"
     type: annotation

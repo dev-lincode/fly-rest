@@ -1,6 +1,6 @@
 <?php
 
-namespace TagInterativa\RestApi\Bundle\OAuth;
+namespace Lincode\RestApi\Bundle\OAuth;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use FOS\OAuthServerBundle\Storage\GrantExtensionInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace TagInterativa\RestApi\Bundle\Repository;
+namespace Lincode\RestApi\Bundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

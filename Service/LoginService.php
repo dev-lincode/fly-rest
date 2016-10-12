@@ -1,6 +1,6 @@
 <?php
 
-namespace TagInterativa\RestApi\Bundle\Service;
+namespace Lincode\RestApi\Bundle\Service;
 
 use Doctrine\ORM\Repository\RepositoryFactory;
 use JMS\Serializer\Serializer;

@@ -5,11 +5,11 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="platform.entity.user.class">TagInterativa\RestApi\Bundle\Entity\Member</parameter>
-        <parameter key="platform.user.provider.class">TagInterativa\RestApi\Bundle\Provider\UserProvider</parameter>
+        <parameter key="platform.entity.user.class">Lincode\RestApi\Bundle\Entity\Member</parameter>
+        <parameter key="platform.user.provider.class">Lincode\RestApi\Bundle\Provider\UserProvider</parameter>
         <parameter key="adoy_oauth2.client.class">OAuth2\Client</parameter>
-        <parameter key="oauth_client.client.class">TagInterativa\RestApi\Bundle\Service\OAuth2Client</parameter>
-        <parameter key="taginterativa.user.login">TagInterativa\RestApi\Bundle\Service\LoginService</parameter>
+        <parameter key="oauth_client.client.class">Lincode\RestApi\Bundle\Service\OAuth2Client</parameter>
+        <parameter key="taginterativa.user.login">Lincode\RestApi\Bundle\Service\LoginService</parameter>
     </parameters>
 
     <services>

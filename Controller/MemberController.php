@@ -1,9 +1,9 @@
 <?php
 
-namespace TagInterativa\RestApi\Bundle\Controller;
+namespace Lincode\RestApi\Bundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use TagInterativa\CMSBundle\Controller\TemplateController;
+use Lincode\Fly\Bundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -12,35 +12,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @Route("/cms/member")
  */
-class MemberController extends TemplateController
+class MemberController extends BaseController
 {
-	public function __construct() {
-		$this->singularTitle = "Membro";
-		$this->pluralTitle   = "Membros";
-
-		$this->entityClass      = "TagInterativa\RestApi\Bundle\Entity\Member";
-		$this->entityForm       = "TagInterativa\RestApi\Bundle\Form\MemberType";
-		$this->entityRepository = "RestApiBundle:Member";
-
-		$this->routeBase = "cms_member";
-
-		$fields = '{
-			"id": {
-				"label" : "Id",
-				"col" : 1
-			},
-			"name": {
-				"label" : "Name",
-				"col" : 4
-			},
-			"email": {
-				"label" : "Email",
-				"col" : 5
-			}
-		}';
-		$this->listFields = json_decode($fields, true);
-		$this->persistences = array("create" => true, "read" => true, "update" => true, "delete" => true);
-	}
+    protected $configs = [
+        'prefix_route' => 'cms_member',
+        'singular_name' => 'Membro',
+        'plural_name' => 'Membros',
+        'entity' => 'RestApiBundle:Member',
+        'entity_class' => 'Lincode\RestApi\Bundle\Entity\Member',
+        'entity_form' => 'Lincode\RestApi\Bundle\Form\MemberType',
+        'title_field' => 'name',
+        'list_fields' => ['name' => 'Nome', 'email' => 'Email'],
+        'show_fields' => ['name' => 'Nome', 'email' => 'Email']
+    ];
 
     /**
      * Lists all Member entities.
@@ -49,19 +33,8 @@ class MemberController extends TemplateController
      * @Method("GET")
      */
 
-    public function indexAction(Request $request) {
-        return parent::indexAction($request);
-    }
-
-    /**
-     * Generate Report.
-     *
-     * @Route("/report", name="cms_member_report")
-     * @Method("GET")
-     */
-
-    public function reportAction(Request $request) {
-        return parent::reportAction($request);
+    public function indexAction() {
+        return parent::indexAction();
     }
 
     /**
@@ -80,8 +53,8 @@ class MemberController extends TemplateController
      * @Route("/{id}/show", name="cms_member_show")
      * @Method("GET")
      */
-    public function showAction(Request $request, $id) {
-        return parent::showAction($request, $id);
+    public function showAction($id) {
+        return parent::showAction($id);
     }
 
     /**
@@ -100,8 +73,8 @@ class MemberController extends TemplateController
      * @Route("/{id}/delete", name="cms_member_delete")
      * @Method("GET")
      */
-    public function deleteAction(Request $request, $id) {
-        return parent::deleteAction($request, $id);
+    public function deleteAction($id) {
+        return parent::deleteAction($id);
     }
 
     /**
@@ -115,7 +88,7 @@ class MemberController extends TemplateController
 	}
 
     protected function beforePersist($entity, $form, $method) {
-        if($form->getData()->getPassword()) {
+        if ($form->getData()->getPassword() != '') {
             $entity->setPassword($this->encondePassword($entity, $form->getData()->getPassword()));
         }
     }

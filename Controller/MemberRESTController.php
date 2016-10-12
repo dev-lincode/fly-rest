@@ -1,10 +1,10 @@
 <?php
 
-namespace TagInterativa\RestApi\Bundle\Controller;
+namespace Lincode\RestApi\Bundle\Controller;
 
-use TagInterativa\RestApi\Bundle\Errors\FormErrorException;
-use TagInterativa\RestApi\Bundle\Entity\Member;
-use TagInterativa\RestApi\Bundle\Form\MemberType;
+use Lincode\RestApi\Bundle\Errors\FormErrorException;
+use Lincode\RestApi\Bundle\Entity\Member;
+use Lincode\RestApi\Bundle\Form\MemberType;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\View\View as FOSView;
 use FOS\RestBundle\Controller\Annotations\RouteResource;

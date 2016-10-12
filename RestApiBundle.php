@@ -1,5 +1,5 @@
 <?php
-namespace TagInterativa\RestApi\Bundle;
+namespace Lincode\RestApi\Bundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

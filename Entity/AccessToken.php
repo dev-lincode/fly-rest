@@ -1,6 +1,6 @@
 <?php
 
-namespace TagInterativa\RestApi\Bundle\Entity;
+namespace Lincode\RestApi\Bundle\Entity;
 
 use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,7 +25,7 @@ class AccessToken extends BaseAccessToken
     protected $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="TagInterativa\RestApi\Bundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Lincode\RestApi\Bundle\Entity\User")
      */
     protected $user;
 }
