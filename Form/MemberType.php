@@ -31,7 +31,7 @@ class MemberType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TagInterativa\RestApi\Bundle\Entity\Member',
+            'data_class' => 'Lincode\RestApi\Bundle\Entity\Member',
         ));
     }
 

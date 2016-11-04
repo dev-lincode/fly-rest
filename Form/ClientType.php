@@ -26,7 +26,7 @@ class ClientType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TagInterativa\RestApi\Bundle\Entity\Client',
+            'data_class' => 'Lincode\RestApi\Bundle\Entity\Client',
         ));
     }
 

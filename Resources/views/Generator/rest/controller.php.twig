@@ -3,7 +3,7 @@
 namespace {{ namespace }}\Controller{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
 
 {% block use_statements %}
-use TagInterativa\RestApi\Bundle\Errors\FormErrorException;
+use Lincode\RestApi\Bundle\Errors\FormErrorException;
 use {{ namespace }}\Entity\{{ entity }};
 use {{ namespace }}\Form\{{ entity }}Type;
 use FOS\RestBundle\Util\Codes;

@@ -41,8 +41,8 @@
         try {
             return ['result' => $entity, 'has_more' => false];
         } catch (\Exception $e) {
-            return FOSView::create(['error' => ['code'=> Codes::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => $e->getMessage()]], Codes::HTTP_INTERNAL_SERVER_ERROR);
+            return FOSView::create(['error' => ['code'=> Codes::HTTP_NOT_FOUND,
+                'message' => $e->getMessage()]], Codes::HTTP_NOT_FOUND);
         }
 {% endblock method_body %}
 {% block method_return '' %}

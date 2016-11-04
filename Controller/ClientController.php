@@ -28,11 +28,14 @@ class ClientController extends BaseController
         'show_fields' => ['name' => 'Nome', 'publicId' => 'Client ID', 'secret' => 'Secret ID']
     ];
 
+    protected $permissions = array('create'=> true, 'edit' => false, 'delete' => true, 'show'=> false);
+
     /**
      * Lists all Member entities.
      *
      * @Route("/", name="cms_client")
      * @Method("GET")
+     * @Template("FlyBundle:CRUD:index.html.twig")
      */
 
     public function indexAction() {
@@ -44,6 +47,7 @@ class ClientController extends BaseController
      *
      * @Route("/new", name="cms_client_new")
      * @Method({"GET", "POST"})
+     * @Template("FlyBundle:CRUD:new.html.twig")
      */
     public function newAction(Request $request) {
 
@@ -64,16 +68,9 @@ class ClientController extends BaseController
                     $client->setName($form['name']->getData());
                     $clientManager->updateClient($client);
 
-                    $this->get('session')->getFlashBag()->add('title', $this->singularTitle);
-                    $this->get('session')->getFlashBag()->add('message', 'Criação de ' . $this->singularTitle . ' efetuada com sucesso.');
+                    $this->get('session')->getFlashBag()->add('title', $this->configs['singular_name']);
+                    $this->get('session')->getFlashBag()->add('message', 'Criação de ' . $this->configs['singular_name'] . ' efetuada com sucesso.');
 
-                    if(array_key_exists('_cms_new', $request->request->get($form->getName()))) {
-                        return $this->redirect($this->generateUrl($this->routeBase . '_new', array_merge($this->viewDefaultParams, $request->query->all())));
-                    } else if(array_key_exists('_cms_list', $request->request->get($form->getName()))) {
-                        return $this->redirect($this->generateUrl($this->routeBase, array_merge($this->viewDefaultParams, $request->query->all())));
-                    } else {
-                        return $this->redirect($this->generateUrl($this->routeBase . '_edit', array_merge($this->viewDefaultParams, array('id' => $entity->getId()), $request->query->all())));
-                    }
                 } catch(\Exception $e) {
                     if($this->container->getParameter('kernel.environment') == 'dev') {
                         throw $e;
