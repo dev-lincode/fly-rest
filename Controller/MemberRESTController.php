@@ -268,7 +268,7 @@ class MemberRESTController extends VoryxController
      * )
      *
      *
-    */
+     */
 
     public function patchAction(Request $request, Member $entity)
     {

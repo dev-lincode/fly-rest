@@ -2,14 +2,25 @@
 
 namespace Lincode\RestApi\Bundle\Service;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Repository\RepositoryFactory;
 use JMS\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use TagInterativa\CMSBundle\Service\Service;
 
-class LoginService extends Service
+class LoginService
 {
+    private $em;
+    private $encoderService;
+    private $serializer;
+
+    public function __construct(EntityManager $em, $encoderService, $serializer)
+    {
+        $this->em = $em;
+        $this->encoderService = $encoderService;
+        $this->serializer = $serializer;
+    }
+
     public function login(Request $request, $repository){
 
         if (!$request->headers->contains("Content-Type", "application/json")){
@@ -25,16 +36,14 @@ class LoginService extends Service
                 'message' => 'Preencha os campos de usuario e senha']], JsonResponse::HTTP_BAD_REQUEST);
         }
 
-        $em = $this->getEntityManager();
-        $user = $em->getRepository($repository)->findOneBy(array('email' => $username, 'isActive' => 1));
+        $user = $this->em->getRepository($repository)->findOneBy(array('email' => $username, 'isActive' => 1));
 
         if (!$user){
             return new JsonResponse(['error' => ['code'=> JsonResponse::HTTP_UNAUTHORIZED,
                 'message' => 'Usuário não encontrado']], JsonResponse::HTTP_UNAUTHORIZED);
         }
 
-        $encoder_service = $this->getContainer()->get('security.encoder_factory');
-        $encoder = $encoder_service->getEncoder($user);
+        $encoder = $this->encoderService->getEncoder($user);
         $encoded_pass = $encoder->encodePassword($password, $user->getSalt());
 
         if ($encoded_pass != $user->getPassword()) {
@@ -44,12 +53,11 @@ class LoginService extends Service
 
         if (!$user->getApiKey()){
             $user->generateApiKey();
-            $em->persist($user);
-            $em->flush();
+            $this->em->persist($user);
+            $this->em->flush();
         }
 
-        $serializer = $this->getContainer()->get('serializer');
-        $userContent = $serializer->serialize($user, 'json');
+        $userContent = $this->serializer->serialize($user, 'json');
 
         return new JsonResponse(['result' => json_decode($userContent, true), 'has_more'=> false]);
     }

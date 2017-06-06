@@ -56,8 +56,7 @@
             </argument>
         </service>
 
-        <service id="taginterativa.user.login_service" class="%taginterativa.user.login%">
-            <argument type="service" id="service_container" />
+        <service id="lincode.user.login_service" class="%lincode.user.login%">
         </service>
 
     </services>

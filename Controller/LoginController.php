@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * Member controller.
  *
- * @Route("/api/v1/login")
+ * @Route("/login")
  */
 class LoginController extends FOSRestController
 {
@@ -61,7 +61,7 @@ class LoginController extends FOSRestController
     {
 
         if ($request->getMethod() == "POST") {
-            $loginService = $this->container->get('taginterativa.user.login_service');
+            $loginService = $this->container->get('lincode.user.login_service');
             $repository = $this->container->getParameter('oauth2_entity_repository');
             return $loginService->login($request, $repository);
         }
