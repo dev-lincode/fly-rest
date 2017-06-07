@@ -44,9 +44,8 @@
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+            $em = $this->container->get('lincode.entity.manager.service');
+            $em->save($entity);
 
             return ['result' => $entity, 'has_more' => false];
         }

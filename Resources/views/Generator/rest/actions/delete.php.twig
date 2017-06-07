@@ -32,9 +32,8 @@
     {
 {% block method_body %}
         try {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->container->get('lincode.entity.manager.service');
             $em->remove($entity);
-            $em->flush();
 
             return ['result' => 'success', 'has_more' => false];
         } catch (\Exception $e) {

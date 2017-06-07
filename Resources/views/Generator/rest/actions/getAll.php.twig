@@ -46,10 +46,12 @@
             $order_by = $paramFetcher->get('order_by');
             $filters = !is_null($paramFetcher->get('filters')) ? $paramFetcher->get('filters') : array();
 
-            $em = $this->getDoctrine()->getManager();
-            $entities = $em->getRepository('{{ bundle }}:{{ entity }}')->findBy($filters, $order_by, $limit, $offset);
+            $em = $this->container->get('lincode.entity.manager.service');
+            $em->setRepository('{{ bundle }}:{{ entity }}');
+            $entities = $em->findBy($filters, $order_by, $limit, $offset);
+
             if ($entities) {
-                $entitiesNextPage = $em->getRepository('{{ bundle }}:{{ entity }}')->findBy($filters, $order_by, $limit, $offset + $limit);
+                $entitiesNextPage = $em->findBy($filters, $order_by, $limit, $offset + $limit);
                 $has_next = false;
 
                 if ($entitiesNextPage) {

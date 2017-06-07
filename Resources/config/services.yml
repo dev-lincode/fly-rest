@@ -33,6 +33,10 @@ services:
         class: %oauth_client.client.class%
         arguments: ['@adoy_oauth2.client', '%oauth2_auth_endpoint%', '%oauth2_token_endpoint%', '%oauth2_redirect_url%', authorization_code, { redirect_uri: '%oauth2_redirect_url%' }]
 
+    lincode.entity.manager.service:
+        class: Lincode\RestApi\Bundle\Service\EntityManagerService
+        arguments: ["@doctrine.orm.entity_manager"]
+
     lincode.user.login_service:
         class: Lincode\RestApi\Bundle\Service\LoginService
         arguments: ["@doctrine.orm.entity_manager", "@security.encoder_factory", "@serializer"]
