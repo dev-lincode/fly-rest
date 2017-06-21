@@ -48,7 +48,7 @@ class LoginController extends FOSRestController
      *   },
      *   responseMap={
      *      200 = {
-     *          "class"="TagInterativa\RestApi\Bundle\Entity\User",
+     *          "class"="Lincode\RestApi\Bundle\Entity\User",
      *          "parsers"={"Nelmio\ApiDocBundle\Parser\JmsMetadataParser"}
      *     }
      *   }

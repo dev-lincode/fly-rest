@@ -42,7 +42,7 @@ class MemberRESTController extends VoryxController
      *   },
      *   responseMap={
      *      200 = {
-     *          "class"="TagInterativa\RestApi\Bundle\Entity\Member",
+     *          "class"="Lincode\RestApi\Bundle\Entity\Member",
      *          "parsers"={"Nelmio\ApiDocBundle\Parser\JmsMetadataParser"}
      *     }
      *   }
@@ -82,7 +82,7 @@ class MemberRESTController extends VoryxController
      *   },
      *   responseMap={
      *      200 = {
-     *          "class"="TagInterativa\RestApi\Bundle\Entity\Member",
+     *          "class"="Lincode\RestApi\Bundle\Entity\Member",
      *          "parsers"={"Nelmio\ApiDocBundle\Parser\JmsMetadataParser"}
      *     }
      *   }
@@ -138,13 +138,13 @@ class MemberRESTController extends VoryxController
      *          "description"="application/json"
      *      }
      *   },
-     *   input="TagInterativa\RestApi\Bundle\Form\MemberType",
+     *   input="Lincode\RestApi\Bundle\Form\MemberType",
      *   statusCodes = {
      *      404 = "Página não encontrada"
      *   },
      *   responseMap={
      *      200 = {
-     *          "class"="TagInterativa\RestApi\Bundle\Entity\Member",
+     *          "class"="Lincode\RestApi\Bundle\Entity\Member",
      *          "parsers"={"Nelmio\ApiDocBundle\Parser\JmsMetadataParser"}
      *     }
      *   }
@@ -194,13 +194,13 @@ class MemberRESTController extends VoryxController
      *          "description"="application/json"
      *      }
      *   },
-     *   input="TagInterativa\RestApi\Bundle\Form\MemberType",
+     *   input="Lincode\RestApi\Bundle\Form\MemberType",
      *   statusCodes = {
      *      404 = "Página não encontrada"
      *   },
      *   responseMap={
      *      200 = {
-     *          "class"="TagInterativa\RestApi\Bundle\Entity\Member",
+     *          "class"="Lincode\RestApi\Bundle\Entity\Member",
      *          "parsers"={"Nelmio\ApiDocBundle\Parser\JmsMetadataParser"}
      *     }
      *   }
@@ -255,13 +255,13 @@ class MemberRESTController extends VoryxController
      *          "description"="application/json"
      *      }
      *   },
-     *   input="TagInterativa\RestApi\Bundle\Form\MemberType",
+     *   input="Lincode\RestApi\Bundle\Form\MemberType",
      *   statusCodes = {
      *      404 = "Página não encontrada"
      *   },
      *   responseMap={
      *      200 = {
-     *          "class"="TagInterativa\RestApi\Bundle\Entity\Member",
+     *          "class"="Lincode\RestApi\Bundle\Entity\Member",
      *          "parsers"={"Nelmio\ApiDocBundle\Parser\JmsMetadataParser"}
      *     }
      *   }
