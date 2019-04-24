@@ -20,7 +20,7 @@ class RestApiCommand extends GenerateDoctrineRESTCommand {
         }
         return $this->generator;
     }
-    protected function createGenerator()
+    protected function createGenerator($bundle = NULL)
     {
         return new DoctrineRESTGenerator($this->getContainer()->get('filesystem'));
     }
